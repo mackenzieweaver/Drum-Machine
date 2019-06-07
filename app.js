@@ -130,7 +130,6 @@ for (let i = 0; i < btns.length; i++) {
   btn.innerHTML = bnk.keyTrigger;
   btn.setAttribute("id", bnk.id);
   btn.addEventListener("click", clicksound);
-  btn.addEventListener("keydown", keysound);
 
   // put an audio element inside the button with: src, class and id
   var audio = document.createElement("audio");
@@ -151,4 +150,14 @@ function clicksound(e) {
   clip.play();
 }
 
-function keysound(e) {}
+// keyboard listener
+document.body.addEventListener("keydown", keysound);
+function keysound(e) {
+  for (obj in bank) {
+    if (bank[obj].keyCode === e.keyCode) {
+      document.getElementById("sound").innerHTML = bank[obj].id;
+      let clip = document.querySelector(`#${bank[obj].id} audio`);
+      clip.play();
+    }
+  }
+}
