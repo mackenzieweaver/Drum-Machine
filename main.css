@@ -1,0 +1,24 @@
+* {
+  top: 0;
+  margin: 0;
+}
+
+body {
+  text-align: center;
+  align-self: center;
+  background-color: #87b5b5;
+}
+
+header {
+  padding: 1rem;
+}
+
+#input {
+  display: flex;
+  justify-content: center;
+}
+
+#pads {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
