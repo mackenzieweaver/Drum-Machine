@@ -40,7 +40,7 @@ const bankOne = [
   {
     keyCode: 90,
     keyTrigger: "Z",
-    id: "Kick-n'-Hat",
+    id: "Kick-n-Hat",
     url: "https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3"
   },
   {
@@ -129,7 +129,8 @@ for (let i = 0; i < btns.length; i++) {
   // set button attribute, text, and event handler
   btn.innerHTML = bnk.keyTrigger;
   btn.setAttribute("id", bnk.id);
-  btn.addEventListener("click", playsound);
+  btn.addEventListener("click", clicksound);
+  btn.addEventListener("keydown", keysound);
 
   // put an audio element inside the button with: src, class and id
   var audio = document.createElement("audio");
@@ -140,11 +141,14 @@ for (let i = 0; i < btns.length; i++) {
 }
 
 // When a drum pad is clicked
-function playsound(e) {
+function clicksound(e) {
   e.preventDefault();
   // Display the pad id
   document.getElementById("sound").innerHTML = e.target.id;
+  // select the audio element by the button id's audio child
+  let clip = document.querySelector(`#${e.target.id} audio`);
   // play the audio
-  let clip = e.target.lastChild;
   clip.play();
 }
+
+function keysound(e) {}
