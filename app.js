@@ -117,15 +117,34 @@ const bankTwo = [
 // bank selector
 let bank = bankOne;
 
-// creates key pads
+// Select all drum pads
 var btns = document.querySelectorAll(".drum-pad");
+
+// Work with each pad
 for (let i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", playsound);
-  btns[i].innerHTML = bank[i].keyTrigger;
-  btns[i].setAttribute("id", bank[i].id);
+  // button and bank variables
+  let btn = btns[i];
+  let bnk = bank[i];
+
+  // set button attribute, text, and event handler
+  btn.innerHTML = bnk.keyTrigger;
+  btn.setAttribute("id", bnk.id);
+  btn.addEventListener("click", playsound);
+
+  // put an audio element inside the button with: src, class and id
+  var audio = document.createElement("audio");
+  audio.setAttribute("src", bnk.url);
+  audio.setAttribute("class", "clip");
+  audio.setAttribute("id", bnk.keyTrigger);
+  btn.appendChild(audio);
 }
 
-// when a key is pressed
+// When a drum pad is clicked
 function playsound(e) {
-  console.log(e.target.id);
+  e.preventDefault();
+  // Display the pad id
+  document.getElementById("sound").innerHTML = e.target.id;
+  // play the audio
+  let clip = e.target.lastChild;
+  clip.play();
 }
