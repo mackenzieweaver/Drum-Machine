@@ -175,16 +175,16 @@ function clicksound(e) {
 document.body.addEventListener("keydown", keysound);
 // keyboard event handler
 function keysound(e) {
-  // loop through objects in the bank
-  for (obj in bank) {
-    // if the object has the same keycode as the one pressed
-    if (bank[obj].keyCode === e.keyCode) {
-      // change the display to the button id
-      document.getElementById("sound").innerHTML = bank[obj].id;
-      // select that clip
-      let clip = document.querySelector(`#${bank[obj].id} audio`);
-      // play the clip
-      clip.play();
-    }
+  let keys = [81, 87, 69, 65, 83, 68, 90, 88, 67];
+  // if the keycode pressed is in the keys array
+  if (keys.includes(e.keyCode)) {
+    // the id is equal to the object in the bank with the corresponding index
+    let id = bank[keys.indexOf(e.keyCode)].id;
+    // change the display to the button id
+    document.getElementById("sound").innerHTML = id;
+    // select that clip
+    let clip = document.querySelector(`#${id} audio`);
+    // play the clip
+    clip.play();
   }
 }
