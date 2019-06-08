@@ -117,26 +117,47 @@ const bankTwo = [
 // bank selector
 let bank = bankOne;
 
+// target bank input
+document
+  .querySelector("#bank label input")
+  .addEventListener("click", changeBank);
+
+function changeBank(e) {
+  // change bank variable
+  if (bank === bankOne) {
+    bank = bankTwo;
+  } else {
+    bank = bankOne;
+  }
+  // set buttons with new bank info
+  setbtns();
+}
+
 // Select all drum pads
 var btns = document.querySelectorAll(".drum-pad");
 
-// Work with each pad
-for (let i = 0; i < btns.length; i++) {
-  // button and bank variables
-  let btn = btns[i];
-  let bnk = bank[i];
+// Set buttons on load
+setbtns();
 
-  // set button attribute, text, and event handler
-  btn.innerHTML = bnk.keyTrigger;
-  btn.setAttribute("id", bnk.id);
-  btn.addEventListener("click", clicksound);
+function setbtns() {
+  // Work with each pad
+  for (let i = 0; i < btns.length; i++) {
+    // button and bank variables
+    let btn = btns[i];
+    let bnk = bank[i];
 
-  // put an audio element inside the button with: src, class and id
-  var audio = document.createElement("audio");
-  audio.setAttribute("src", bnk.url);
-  audio.setAttribute("class", "clip");
-  audio.setAttribute("id", bnk.keyTrigger);
-  btn.appendChild(audio);
+    // set button attribute, text, and event handler
+    btn.innerHTML = bnk.keyTrigger;
+    btn.setAttribute("id", bnk.id);
+    btn.addEventListener("click", clicksound);
+
+    // put an audio element inside the button with: src, class and id
+    var audio = document.createElement("audio");
+    audio.setAttribute("src", bnk.url);
+    audio.setAttribute("class", "clip");
+    audio.setAttribute("id", bnk.keyTrigger);
+    btn.appendChild(audio);
+  }
 }
 
 // When a drum pad is clicked
@@ -152,11 +173,17 @@ function clicksound(e) {
 
 // keyboard listener
 document.body.addEventListener("keydown", keysound);
+// keyboard event handler
 function keysound(e) {
+  // loop through objects in the bank
   for (obj in bank) {
+    // if the object has the same keycode as the one pressed
     if (bank[obj].keyCode === e.keyCode) {
+      // change the display to the button id
       document.getElementById("sound").innerHTML = bank[obj].id;
+      // select that clip
       let clip = document.querySelector(`#${bank[obj].id} audio`);
+      // play the clip
       clip.play();
     }
   }
