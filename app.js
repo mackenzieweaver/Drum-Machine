@@ -114,37 +114,43 @@ const bankTwo = [
   }
 ];
 
+// tracks state
 let power = true;
+// selects power button slider
 document.querySelector("#power label input").addEventListener("click", onOff);
+// power button event handler
 function onOff() {
+  // if it's on turn it off
   if (power) {
-    // bank
+    // remove bank event listener
     document
       .querySelector("#bank label input")
       .removeEventListener("click", changeBank);
-    // keys
+    // remove keys event listener
     document.body.removeEventListener("keydown", keysound);
-    // clicks
+    // remove clicks event listener
     for (let i = 0; i < btns.length; i++) {
       btns[i].removeEventListener("click", clicksound);
     }
-    // slider
+    // disable slider
     document.querySelector("#slider input").disabled = true;
-    // display
+    // set display to blank
     document.getElementById("sound").innerHTML = "";
+    // update power state
     power = false;
   } else {
-    // bank
+    // if it's off turn it on
+    // add the bank event listener
     document
       .querySelector("#bank label input")
       .addEventListener("click", changeBank);
-    // keys
+    // add the keys event listener
     document.body.addEventListener("keydown", keysound);
-    // clicks
+    // add the clicks event listener
     for (let i = 0; i < btns.length; i++) {
       btns[i].addEventListener("click", clicksound);
     }
-    // slider
+    // enable the slider
     document.querySelector("#slider input").disabled = false;
     power = true;
   }
