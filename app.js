@@ -114,6 +114,42 @@ const bankTwo = [
   }
 ];
 
+let power = true;
+document.querySelector("#power label input").addEventListener("click", onOff);
+function onOff() {
+  if (power) {
+    // bank
+    document
+      .querySelector("#bank label input")
+      .removeEventListener("click", changeBank);
+    // keys
+    document.body.removeEventListener("keydown", keysound);
+    // clicks
+    for (let i = 0; i < btns.length; i++) {
+      btns[i].removeEventListener("click", clicksound);
+    }
+    // slider
+    document.querySelector("#slider input").disabled = true;
+    // display
+    document.getElementById("sound").innerHTML = "";
+    power = false;
+  } else {
+    // bank
+    document
+      .querySelector("#bank label input")
+      .addEventListener("click", changeBank);
+    // keys
+    document.body.addEventListener("keydown", keysound);
+    // clicks
+    for (let i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", clicksound);
+    }
+    // slider
+    document.querySelector("#slider input").disabled = false;
+    power = true;
+  }
+}
+
 // bank selector
 let bank = bankOne;
 
