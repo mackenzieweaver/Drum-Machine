@@ -6,15 +6,15 @@
 body {
   text-align: center;
   align-self: center;
-  background-color: #3b4d74;
+  background-color: lightgray;
 }
 
 #input {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
-  padding: 1rem 3rem;
-  background-color: white;
+  padding: 1rem;
+  background-color: darkgray;
   border-radius: 10px;
 }
 
@@ -25,14 +25,16 @@ body {
 }
 
 #pads button {
-  background-color: #3b4d74;
+  background-color: lightgray;
   border-radius: 10px;
 }
 
 #sound {
-  background-color: #f06595;
-  padding: 1rem 3rem;
-  margin: 1rem;
+  background-color: lightgray;
+  width: 3.5rem;
+  height: 15px;
+  padding: 10px 50px;
+  margin: 20px;
   border-radius: 10px;
 }
 
@@ -40,7 +42,19 @@ body {
   display: grid;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  padding: 1rem;
+  padding-top: 25vh;
+}
+
+#contact a {
+  list-style-type: none;
+  color: black;
+  padding: 0.5rem;
+}
+
+#dislplay {
+  padding: 0;
+  margin: 0;
 }
 
 /*

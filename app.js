@@ -1,4 +1,4 @@
-// banks - keycode, keytrigger, id, and sound url
+/* banks - keycode, keytrigger, id, and sound url */
 
 const bankOne = [
   {
@@ -114,18 +114,37 @@ const bankTwo = [
   }
 ];
 
+/* Variables */
+
 // tracks state
 let power = true;
+// bank selector
+let bank = bankOne;
+
+/* Event listeners */
+
 // selects power button slider
 document.querySelector("#power label input").addEventListener("click", onOff);
+// target bank input
+document
+  .querySelector("#bank label input")
+  .addEventListener("click", changeBank);
+// Select all drum pads
+var btns = document.querySelectorAll(".drum-pad");
+let slider = document.querySelector("#slider input");
+slider.addEventListener("change", slide);
+let volume = slider.value;
+// keyboard listener
+document.body.addEventListener("keydown", keysound);
+
+/* functions */
+
 // power button event handler
 function onOff() {
   // if it's on turn it off
   if (power) {
     // remove bank event listener
-    document
-      .querySelector("#bank label input")
-      .removeEventListener("click", changeBank);
+    document.querySelector("#bank label input").setAttribute("disabled", true);
     // remove keys event listener
     document.body.removeEventListener("keydown", keysound);
     // remove clicks event listener
@@ -141,9 +160,7 @@ function onOff() {
   } else {
     // if it's off turn it on
     // add the bank event listener
-    document
-      .querySelector("#bank label input")
-      .addEventListener("click", changeBank);
+    document.querySelector("#bank label input").removeAttribute("disabled");
     // add the keys event listener
     document.body.addEventListener("keydown", keysound);
     // add the clicks event listener
@@ -156,14 +173,6 @@ function onOff() {
   }
 }
 
-// bank selector
-let bank = bankOne;
-
-// target bank input
-document
-  .querySelector("#bank label input")
-  .addEventListener("click", changeBank);
-
 function changeBank(e) {
   // change bank variable
   if (bank === bankOne) {
@@ -175,11 +184,11 @@ function changeBank(e) {
   setbtns();
 }
 
-// Select all drum pads
-var btns = document.querySelectorAll(".drum-pad");
-
-// Set buttons on load
-setbtns();
+// slider functionality
+function slide(e) {
+  volume = e.target.value;
+  document.getElementById("sound").innerHTML = "Volume: " + volume;
+}
 
 function setbtns() {
   // Work with each pad
@@ -209,12 +218,12 @@ function clicksound(e) {
   document.getElementById("sound").innerHTML = e.target.id;
   // select the audio element by the button id's audio child
   let clip = document.querySelector(`#${e.target.id} audio`);
+  // set volume
+  clip.volume = volume / 100;
   // play the audio
   clip.play();
 }
 
-// keyboard listener
-document.body.addEventListener("keydown", keysound);
 // keyboard event handler
 function keysound(e) {
   let keys = [81, 87, 69, 65, 83, 68, 90, 88, 67];
@@ -226,7 +235,14 @@ function keysound(e) {
     document.getElementById("sound").innerHTML = id;
     // select that clip
     let clip = document.querySelector(`#${id} audio`);
+    // set volume
+    clip.volume = volume / 100;
     // play the clip
     clip.play();
   }
 }
+
+/* Calls */
+
+// Set buttons on load
+setbtns();
